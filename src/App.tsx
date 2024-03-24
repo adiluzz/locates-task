@@ -68,7 +68,7 @@ const LocateRequests = () => {
 								}}
 								variant='contained'
 							>
-								Retrieve Locates From Broker For Sutggested</Button>
+								Retrieve Locates From Broker For Suggested</Button>
 
 							<Button
 								onClick={async () => {
