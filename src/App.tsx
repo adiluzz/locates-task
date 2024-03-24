@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { getSessionId, retrieveAllocationsData, retrieveLocatesFromBroker, submitResultsToSession } from './Actions';
 import Machine from './Machine';
@@ -23,47 +24,60 @@ const LocateRequests = () => {
 			{
 				sessionId &&
 				<>
-					<button onClick={async () => {
-						setIsLoading(true);
-						const response = await retrieveAllocationsData(sessionId);
-						setMachines((setMachineData(response)));
-						setIsLoading(false);
-					}}
-					>Retrieve Locate Requests</button>
+					<Button
+						onClick={async () => {
+							setIsLoading(true);
+							const response = await retrieveAllocationsData(sessionId);
+							setMachines((setMachineData(response)));
+							setIsLoading(false);
+						}}
+						variant='contained'
+					>
+						Retrieve Locate Requests
+					</Button>
 					{
 						machines.length > 0 &&
 						<>
-							<button onClick={async () => {
-								setIsLoading(true);
-								const newMachines = await retrieveLocatesFromBroker(machines, sessionId)
-								setMachines(newMachines);
-								setIsLoading(false);
-							}}
-							>Retrieve Locates From Broker for allocations</button>
+							<Button
+								onClick={async () => {
+									setIsLoading(true);
+									const newMachines = await retrieveLocatesFromBroker(machines, sessionId)
+									setMachines(newMachines);
+									setIsLoading(false);
+								}}
+								variant='contained'
+							>
+								Retrieve Locates From Broker for allocations
+							</Button>
 
-							<button
+							<Button
 								onClick={() =>
 									setMachines(suggestAllocationsModel1(machines))
 								}
-							>Suggest allocations with model 1</button>
+								variant='contained'
+							>
+								Suggest allocations with model 1
+							</Button>
 
-							<button
+							<Button
 								onClick={async () => {
 									setIsLoading(true);
 									const newMachines = await retrieveLocatesFromBroker(machines, sessionId, true)
 									setMachines(newMachines);
 									setIsLoading(false);
 								}}
+								variant='contained'
 							>
-								Retrieve Locates From Broker For Sutggested</button>
+								Retrieve Locates From Broker For Sutggested</Button>
 
-							<button
+							<Button
 								onClick={async () => {
 									await submitResultsToSession(prepareDataToSubmit(machines), sessionId);
 								}}
+								variant='contained'
 							>
 								Submit Suggested
-							</button>
+							</Button>
 						</>
 					}
 				</>
